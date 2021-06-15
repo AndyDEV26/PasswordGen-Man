@@ -5,7 +5,7 @@ import mysql.connector
 def medium_password():
     chars = list(string.ascii_lowercase)
     big_chars = list(string.ascii_uppercase)
-    numbs = [1,2,3,4,5,6,7,8,9]
+    numbs = list(string.digits)
     things_list = ['~','#','@','$','%','^','&','*','`',':',';','-','_']
     c1 = chars[random.randint(3,22)]
     c2 = chars[random.randint(6,18)]
@@ -35,7 +35,7 @@ def medium_password():
 def hard_password():
     chars = list(string.ascii_lowercase)
     big_chars = list(string.ascii_uppercase)
-    numbs = [1,2,3,4,5,6,7,8,9]
+    numbs = list(string.digits)
     things_list = ['~','#','@','$','%','^','&','*','`',':',';','-','_']
     c1 = chars[random.randint(1,23)]
     c2 = chars[random.randint(4,18)]
@@ -73,7 +73,7 @@ def hard_password():
 def impossible():
     chars = list(string.ascii_lowercase)
     big_chars = list(string.ascii_uppercase)
-    numbs = [1,2,3,4,5,6,7,8,9]
+    numbs = list(string.digits)
     things_list = ['~','#','@','$','%','^','&','*','`',':',';','-','_']
     c1 = chars[random.randint(0,24)]
     c2 = chars[random.randint(3,21)]
