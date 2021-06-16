@@ -1,6 +1,6 @@
 import random
 import string
-import mysql.connector
+import sqlite3
 #------------------MEDIUM----------------------------
 def medium_password():
     chars = list(string.ascii_lowercase)
@@ -27,9 +27,8 @@ def medium_password():
     dbStoringInput = input('Would you like to store this password in a database??[y/n]')
     if dbStoringInput == 'y':
         site = input('Write what this password is going to be used for:')
-        insertPassword = 'INSERT INTO passwords(password,site) VALUES (%s,%s)'
-        vals = (medium_password,site)
-        cursor.execute(insertPassword,vals)
+        insertPassword = f"INSERT INTO passwords(password,site) VALUES ('{medium_password}','{site}');"
+        cursor.execute(insertPassword)
         db.commit()
 #-----------------------HARD--------------------------
 def hard_password():
@@ -65,9 +64,8 @@ def hard_password():
     dbStoringInput = input('Would you like to store this password in a database??[y/n]')
     if dbStoringInput == 'y':
         site = input('Write what this password is going to be used for:')
-        insertPassword = 'INSERT INTO passwords(password,site) VALUES (%s,%s)'
-        vals = (hard_password,site)
-        cursor.execute(insertPassword,vals)
+        insertPassword = f"INSERT INTO passwords(password,site) VALUES ('{hard_password}','{site}');"
+        cursor.execute(insertPassword)
         db.commit()
 #----------------------IMPOSSIBLE-----------------------------
 def impossible():
@@ -109,20 +107,12 @@ def impossible():
     dbStoringInput = input('Would you like to store this password in a database??[y/n]')
     if dbStoringInput == 'y':
         site = input('Write what this password is going to be used for:')
-        insertPassword = 'INSERT INTO passwords(password,site) VALUES (%s,%s)'
-        vals = (impossible_password,site)
-        cursor.execute(insertPassword,vals)
+        insertPassword = f"INSERT INTO passwords(password,site) VALUES ('{impossible_password}','{site})'"
+        cursor.execute(insertPassword)
         db.commit()
 
 #-------------------MENU-------------------------
-MySQLusername = input('Enter your MySQL username:')
-MySQLpassword = input('Enter your MySQL password for user {user}:'.format(user=MySQLusername))
-#mysql-connection
-db = mysql.connector.connect(
-    host = 'localhost',
-    user = MySQLusername,
-    password = MySQLpassword
-)
+db = sqlite3.connect('test.db')
 cursor = db.cursor()
 
 print('Welcome to Password Generator and Manager!')
@@ -143,23 +133,18 @@ while True:
     elif menu == '3':
         impossible()
     elif menu == '4':
-        cursor.execute('USE PasswordGenMan')
         cursor.execute("SELECT * FROM passwords")
         result = cursor.fetchall()
-        for x in result:
-            print(result)
+        print(result)
     elif menu == '5':
-        cursor.execute('USE PasswordGenMan')
-        insertValuesMenu = "INSERT INTO passwords(password,site) VALUES (%s,%s)"
         passwordMenuInsert = input('Insert the password:')
         passwordForWhat = input('What is the password for?')
-        values=(passwordMenuInsert,passwordForWhat)
-        cursor.execute(insertValuesMenu,values)
+        insertValuesMenu = f"INSERT INTO passwords(password,site) VALUES ('{passwordMenuInsert}','{passwordForWhat}')"
+        cursor.execute(insertValuesMenu)
         db.commit()
     elif menu == '6':
-        cursor.execute('USE PasswordGenMan')
         whatToDelete = input('Please the name of the site that corresponds with the password you want to delete:')
-        cursor.execute("DELETE FROM passwords WHERE site='{}'".format(whatToDelete))
+        cursor.execute(f"DELETE FROM passwords WHERE site='{whatToDelete}'")
         db.commit()
     elif menu == '7':
         break
