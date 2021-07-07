@@ -122,7 +122,7 @@ with open('test.db','rb') as encrypted_file:
 decrytped = f.decrypt(encrypted)
 with open('test.db','wb') as decrypted_file:
     decrypted_file.write(decrypted)
-db = sqlite3.connect('test.db')
+db = sqlite3.connect('PasswordGenMan.db')
 cursor = db.cursor()
 cursor.execute("SELECT count(name) FROM sqlite_master WHERE type='table' AND name='passwords'")
 if cursor.fetchone()[0] == 1:
