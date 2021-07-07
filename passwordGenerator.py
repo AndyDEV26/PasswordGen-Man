@@ -124,6 +124,11 @@ with open('test.db','wb') as decrypted_file:
     decrypted_file.write(decrypted)
 db = sqlite3.connect('test.db')
 cursor = db.cursor()
+cursor.execute("SELECT count(name) FROM sqlite_master WHERE type='table' AND name='passwords'")
+if cursor.fetchone()[0] == 1:
+    pass
+else:
+    cursor.execute("CREATE TABLE passwords(password VARCHAR(255),site VARCHAR(255))")
 print('Welcome to Password Generator and Manager!')
 while True:
     print('''Please select one of the following opperations:
