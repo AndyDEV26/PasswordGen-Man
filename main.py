@@ -1,7 +1,7 @@
 import random
 import string
 import sqlite3
-from crypthography.fernet import Fernet
+from cryptography.fernet import Fernet
 #------------------MEDIUM----------------------------
 def medium_password():
     chars = list(string.ascii_lowercase)
@@ -119,7 +119,7 @@ with open('key.key','rb') as keyfile:
 f = Fernet(key)
 with open('test.db','rb') as encrypted_file:
     encrypted = encrypted_file.read()
-decrytped = f.decrypt(encrypted)
+decrypted = f.decrypt(encrypted)
 with open('test.db','wb') as decrypted_file:
     decrypted_file.write(decrypted)
 db = sqlite3.connect('PasswordGenMan.db')
